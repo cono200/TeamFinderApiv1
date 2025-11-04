@@ -40,9 +40,10 @@ namespace TeamFinder.API.Controllers
             {
                 return NotFound(); // Devuelve un 404 Not Found si no existe
             }
-            //AÑADIMOS UNA CABEZERA PERSONALIZADA
-            Response.Headers.Add("X-User-Id", usuario.Id.ToString());
-            return Ok(usuario); // Devuelve un 200 OK con el usuario encontrado
+
+            //SIMULANDO UN CAMBIO EN EL CODIGO 
+            var resultado = usuario;
+            return Ok(resultado); // Devuelve un 200 OK con el usuario encontrado
         }
 
         // 4. ENDPOINT PARA CREAR UN NUEVO USUARIO
