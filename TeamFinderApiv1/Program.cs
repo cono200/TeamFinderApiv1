@@ -10,15 +10,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-// --- AÑADE ESTA LÍNEA ---
-// Registra el DbContext para que la aplicación sepa cómo crearlo.
-// Le dice que use SQL Server y que la cadena de conexión está en "DefaultConnection".
+// --- Aï¿½ADE ESTA Lï¿½NEA ---
+// Registra el DbContext para que la aplicaciï¿½n sepa cï¿½mo crearlo.
+// Le dice que use SQL Server y que la cadena de conexiï¿½n estï¿½ en "DefaultConnection".
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add services to the container.
 builder.Services.AddControllers();
-
 
 
 
@@ -39,3 +38,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program { }
