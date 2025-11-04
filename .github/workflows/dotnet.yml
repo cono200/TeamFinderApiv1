@@ -5,9 +5,9 @@ name: .NET
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "develop" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "develop" ]
 
 jobs:
   build:
@@ -25,9 +25,24 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
 
+    # === SECCIÓN DE COMPILACIÓN (BUILD) ===
+    # Este paso es crucial para verificar que el código no contiene errores de sintaxis
+    # y que todas sus dependencias se resuelven correctamente.
+    # Usamos 'dotnet build' para compilar el proyecto y sus dependencias.
+    # La flag '--no-restore' se añade como optimización, ya que las dependencias
+    # ya fueron descargadas en el paso anterior 'Restore dependencies', evitando trabajo redundante.
     - name: Build
       run: dotnet build --no-restore
 
+    # === SECCIÓN DE PRUEBAS (TEST) ===
+    # Este paso valida la funcionalidad y la lógica del negocio a través de las pruebas unitarias.
+    # Es fundamental para asegurar que los cambios no introducen regresiones.
+    # Usamos 'dotnet test' para ejecutar todos los proyectos de prueba en la solución.
+    # La flag '--no-build' es otra optimización, ya que el proyecto ya fue compilado.
+    # La flag '--verbosity normal' proporciona un nivel de detalle adecuado en los logs,
+    # mostrando qué pruebas se ejecutan y su resultado, sin saturar la salida.
+    # El comando 'echo' final añade un mensaje claro y amigable en los logs
+    # para confirmar que la fase de pruebas se completó exitosamente.
     - name: Test
       run: |
         dotnet test --no-build --verbosity normal
