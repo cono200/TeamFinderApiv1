@@ -1,30 +1,35 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using TeamFinder.API.Data; // Importamos el DbContext
 using TeamFinder.API.Models; // Importamos los Models
 
 namespace TeamFinder.API.Controllers
 {
-    [Route("api/v1/[controller]")] // Define la ruta base: /api/usuarios
+    [Route("api/[controller]")] // Define la ruta base: /api/usuarios
     [ApiController] // Indica que es un controlador de API
     public class UsuariosController : ControllerBase
     {
         // 1. Inyección de Dependencias del DbContext
         // El ApplicationDbContext se inyecta automáticamente, gracias a que lo registramos en Program.cs
         private readonly ApplicationDbContext _context;
+        private readonly ILogger<UsuariosController> _logger;
 
-        public UsuariosController(ApplicationDbContext context)
+        public UsuariosController(ApplicationDbContext context, ILogger<UsuariosController> logger)
         {
+
             _context = context;
+            _logger = logger;
         }
 
         // 2. ENDPOINT PARA OBTENER TODOS LOS USUARIOS
         // GET: api/usuarios
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuarios()
+        public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuarios(int id)
         {
             // Obtiene la lista de usuarios de la base de datos de forma asíncrona
             var usuarios = await _context.Usuarios.ToListAsync();
+            _logger.LogInformation("Solicitando usuario con ID: {UsuarioId}", id);
             return Ok(usuarios); // Devuelve un 200 OK con la lista de usuarios en formato JSON
         }
 
