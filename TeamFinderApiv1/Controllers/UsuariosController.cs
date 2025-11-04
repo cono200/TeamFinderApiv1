@@ -5,7 +5,7 @@ using TeamFinder.API.Models; // Importamos los Models
 
 namespace TeamFinder.API.Controllers
 {
-    [Route("api/v1/[controller]")] // Define la ruta base: /api/usuarios
+    [Route("api/v1/Perro/[controller]")] // Define la ruta base: /api/usuarios
     [ApiController] // Indica que es un controlador de API
     public class UsuariosController : ControllerBase
     {
