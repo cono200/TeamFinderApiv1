@@ -29,7 +29,7 @@ namespace TeamFinder.API.Controllers
 
             if (likeExistente)
             {
-                return BadRequest(new { mensaje = "Ya le has dado like a este usuario." });
+                return BadRequest(new { mensaje = "Ya le has dado like a este usuario......" });
             }
 
             // Crear y guardar el nuevo like
